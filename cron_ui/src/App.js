@@ -18,27 +18,27 @@ function App() {
   }
 
   return (
-      <Box sx={{width: "100vw"}}>
-      <DenseAppBar/>
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: "#F0F0F2"
-      }}>
-      <img src={myIcon} width={"400px"} hieght={"400px"}/>
+    <Box sx={{ width: "100vw", height: "100vh", backgroundColor: "#F0F0F2",}}>
+      <DenseAppBar />
       <Box
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-        paddingTop="50px"
+        sx={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '20px'
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
         >
-        <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url}/>
-        {isClicked && 
-        <Results tweetId={parseIdFromUrl()}/>
-        }
-      </Box>
+          <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url} />
+          {isClicked && <Results tweetId={parseIdFromUrl()} />}
+        </Box>
       </Box>
     </Box>
   );

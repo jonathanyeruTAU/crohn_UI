@@ -72,7 +72,7 @@ const Results = ({tweetId}) => {
   const getEngagementMessage = (() => {
     if(isEngagementLoading || !engagementData) return "grey";
     const totalPosts = engagementData.realHumanCount + engagementData.botLikeCount + engagementData.unknownCount;
-    const botsPercentage = (engagementData.botLikeCount / totalPosts) * 100;
+    const botsPercentage = ((engagementData.botLikeCount / totalPosts) * 100).toFixed(1);
     return `${botsPercentage}% of the post's engagement is suspicious to be unauthentic`
   })
 
@@ -90,7 +90,8 @@ const Results = ({tweetId}) => {
 
   const getTopicMessage = (() => {
     if(isTopicLoading || !topicData) return "grey";
-    const botsPercentage = topicData.posts_count / topicData.bot_posts_count;
+    console.log(topicData);
+    const botsPercentage = ((topicData.botPostsCount / topicData.postsCount  ) * 100).toFixed(1);
     return `${botsPercentage}% of posts on the subject are suspicious to be unauthentic`
   })
 

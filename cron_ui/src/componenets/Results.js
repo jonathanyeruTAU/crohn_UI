@@ -1,10 +1,14 @@
 import {useEffect} from 'react'
 import useFetchData from '../hooks/useFetchData';
 import SingleResult from './SingleResult';
+import { Box } from '@mui/material';
+import { blue, red, green, orange, grey } from '@mui/material/colors';
 
 const Results = ({tweetId}) => {
-    console.log("tweetId:", tweetId)
-
+    const myGreen = green[500]
+    const myRed = red[500]
+    const myOrange = orange[500]
+    const myGrey = grey[500]
   const {
     data: authetnticityData,
     isLoading: isAuthLoading,
@@ -30,20 +34,20 @@ const Results = ({tweetId}) => {
   },[])
 
   const getAuthenticityColor = (() => {
-    if(isAuthLoading || !authetnticityData) return "grey";
+    if(isAuthLoading || !authetnticityData) return myGrey;
     if (authetnticityData === "REAL HUMAN") {
-      return 'green'
+      return myGreen
     } else if(authetnticityData === "BOT-LIKE ACTIVITY") {
-      return 'red'
+      return myRed
     } else if(authetnticityData === "UNDETERMINED") {
-      return 'orange'
+      return myOrange
     } else {
-      return 'grey'
+      return myGreen
     }
   })
 
   const getAuthenticityMessage = (() => {
-    if(isAuthLoading|| !authetnticityData) return "grey";
+    if(isAuthLoading|| !authetnticityData) return "To be classified";
     if (authetnticityData === "REAL HUMAN") {
       return 'Real human'
     } else if(authetnticityData === "BOT-LIKE ACTIVITY") {
@@ -56,51 +60,50 @@ const Results = ({tweetId}) => {
   })
 
   const getEngagementColor = (() => {
-    if(isEngagementLoading || !engagementData) return "grey";
-    console.log(engagementData);
+    if(isEngagementLoading || !engagementData) return myGrey;
     const totalPosts = engagementData.realHumanCount + engagementData.botLikeCount + engagementData.unknownCount;
     const botsPercentage = (engagementData.botLikeCount / totalPosts) * 100;
     if (botsPercentage < 0.05) {
-      return 'green'
+      return myGreen
     } else if(botsPercentage < 0.15) {
-      return 'orange'
+      return myOrange
     } else {
-      return 'red'
+      return myRed
     }
   })
 
   const getEngagementMessage = (() => {
-    if(isEngagementLoading || !engagementData) return "grey";
+    if(isEngagementLoading || !engagementData) return "To be classified";
     const totalPosts = engagementData.realHumanCount + engagementData.botLikeCount + engagementData.unknownCount;
     const botsPercentage = ((engagementData.botLikeCount / totalPosts) * 100).toFixed(1);
     return `${botsPercentage}% of the post's engagement is suspicious to be unauthentic`
   })
 
   const getTopicColor = (() => {
-    if(isTopicLoading || !topicData) return "grey";
-    const botsPercentage = topicData.posts_count / topicData.bot_posts_count;
+    if(isTopicLoading || !topicData || topicData.botPostsCount === 0) return myGrey;
+    const botsPercentage =  topicData.postsCount / topicData.botPostsCount;
     if (botsPercentage < 0.05) {
-      return 'green'
+      return myGreen
     } else if(botsPercentage < 0.15) {
-      return 'orange'
+      return myOrange
     } else {
-      return 'red'
+      return myRed
     }
   })
 
   const getTopicMessage = (() => {
-    if(isTopicLoading || !topicData) return "grey";
+    if(isTopicLoading || !topicData || topicData.botPostsCount === 0 ) return "To be classified";
     console.log(topicData);
     const botsPercentage = ((topicData.botPostsCount / topicData.postsCount  ) * 100).toFixed(1);
     return `${botsPercentage}% of posts on the subject are suspicious to be unauthentic`
   })
 
   return (
-    <>
-      <SingleResult isLoading={isAuthLoading} color={{color: getAuthenticityColor()}} message={getAuthenticityMessage()} icon="authenticity" />
-      <SingleResult isLoading={isEngagementLoading} color={{color: getEngagementColor()}} message={getEngagementMessage()} icon="engagement" />
-      <SingleResult isLoading={isTopicLoading} color={{color: getTopicColor()}} message={getTopicMessage()} icon="topic" />
-    </>
+    <Box sx={{display: "flex", gap:"10em"}}>
+        <SingleResult isLoading={isAuthLoading} color={{color: getAuthenticityColor()}} message={getAuthenticityMessage()} icon="authenticity" />
+        <SingleResult isLoading={isEngagementLoading} color={{color: getEngagementColor()}} message={getEngagementMessage()} icon="engagement" />
+        <SingleResult isLoading={isTopicLoading} color={{color: getTopicColor()}} message={getTopicMessage()} icon="topic" />
+    </Box>
   )
 }
 

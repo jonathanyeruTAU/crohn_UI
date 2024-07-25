@@ -2,8 +2,13 @@ import * as React from 'react';
 import { Button, Box, TextField } from '@mui/material';
 
 const UrlLoader = ({setClicked, setUrl, url}) => {
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            setClicked(true)
+        }
+    };
+
     return ( 
-        <Box>
             <TextField
                 id="outlined-controlled"
                 label="Insert URL"
@@ -13,11 +18,11 @@ const UrlLoader = ({setClicked, setUrl, url}) => {
                     setUrl(event.target.value);
                     setClicked(false);
                 }}
+                onKeyDown={handleKeyDown}
+                fullWidth
+                size='small'
+                sx={{width: "30em", marginBottom: "10em"}}
             />
-            <Button variant="contained" onClick={()=>setClicked(true)}>
-                Authentify
-            </Button>
-        </Box>
      );
 }
  

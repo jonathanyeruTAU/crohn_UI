@@ -13,9 +13,9 @@ const SingleResult = ({isLoading, color, message, icon}) => {
         <CircularProgress />
       ) : (
         <CustomTooltip title={message}>
-          {icon === 'authenticity' && <PersonIcon sx={color} />}
-          {icon === 'engagement' && <GroupsIcon sx={color} />}
-          {icon === 'topic' && <SpeakerNotesIcon sx={color} />}      
+          {icon === 'authenticity' && <PersonIcon sx={{ ...color, fontSize: 150 }} />}
+          {icon === 'engagement' && <GroupsIcon sx={{ ...color, fontSize: 150 }} />}
+          {icon === 'topic' && <SpeakerNotesIcon sx={{ ...color, fontSize: 150 }} />}      
         </CustomTooltip>
       )}
     </Box>

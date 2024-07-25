@@ -34,6 +34,7 @@ function App() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
           <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url} />

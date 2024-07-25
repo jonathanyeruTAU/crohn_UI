@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Typography } from '@mui/material';
+import UrlLoader from './componenets/UrlLoader';
+import { useState } from 'react';
+import Results from './componenets/Results';
 
 function App() {
+  const [url, setUrl] = useState("")
+  const [isClicked, setIsClicked] = useState(false)
+
+  const parseIdFromUrl = () => {
+    console.log("url:", url);
+    const urlArr = url.split("/");
+    console.log("in function:", urlArr[urlArr.length - 1])
+    return urlArr[urlArr.length - 1]
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Typography variant="h5" gutterBottom color="textPrimary">
+        Authentify Bot Detector
+      </Typography>
+      <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url}/>
+      {isClicked && 
+      <Results tweetId={parseIdFromUrl()}/>
+      }
+    </>
   );
 }
 

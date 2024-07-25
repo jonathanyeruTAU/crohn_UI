@@ -1,8 +1,10 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import UrlLoader from './componenets/UrlLoader';
 import { useState } from 'react';
 import Results from './componenets/Results';
+import DenseAppBar from './componenets/NavBar';
+import myIcon from './authenticIcon.png'
 
 function App() {
   const [url, setUrl] = useState("")
@@ -16,15 +18,29 @@ function App() {
   }
 
   return (
-    <>
-      <Typography variant="h5" gutterBottom color="textPrimary">
-        Authentify Bot Detector
-      </Typography>
-      <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url}/>
-      {isClicked && 
-      <Results tweetId={parseIdFromUrl()}/>
-      }
-    </>
+      <Box sx={{width: "100vw"}}>
+      <DenseAppBar/>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: "#F0F0F2"
+      }}>
+      <img src={myIcon} width={"400px"} hieght={"400px"}/>
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        paddingTop="50px"
+        >
+        <UrlLoader setClicked={setIsClicked} setUrl={setUrl} url={url}/>
+        {isClicked && 
+        <Results tweetId={parseIdFromUrl()}/>
+        }
+      </Box>
+      </Box>
+    </Box>
   );
 }
 

@@ -49,7 +49,7 @@ const Results = ({tweetId}) => {
   const getAuthenticityMessage = (() => {
     if(isAuthLoading|| !authetnticityData) return "To be classified";
     if (authetnticityData === "REAL HUMAN") {
-      return 'Real human'
+      return 'Model predicted as an authentic user'
     } else if(authetnticityData === "BOT-LIKE ACTIVITY") {
       return 'User is very suspicious to be unauthentic'
     } else if(authetnticityData === "UNDETERMINED") {

@@ -62,6 +62,7 @@ const Results = ({tweetId}) => {
   const getEngagementColor = (() => {
     if(isEngagementLoading || !engagementData) return myGrey;
     const totalPosts = engagementData.realHumanCount + engagementData.botLikeCount + engagementData.unknownCount;
+    if (totalPosts === 0) return myGrey;
     const botsPercentage = (engagementData.botLikeCount / totalPosts) * 100;
     if (botsPercentage < 0.05) {
       return myGreen
@@ -75,6 +76,7 @@ const Results = ({tweetId}) => {
   const getEngagementMessage = (() => {
     if(isEngagementLoading || !engagementData) return "To be classified";
     const totalPosts = engagementData.realHumanCount + engagementData.botLikeCount + engagementData.unknownCount;
+    if (totalPosts === 0) return "To be classified";
     const botsPercentage = ((engagementData.botLikeCount / totalPosts) * 100).toFixed(1);
     return `${botsPercentage}% of the post's engagement is suspicious to be unauthentic`
   })
